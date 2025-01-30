@@ -1,0 +1,46 @@
+div {
+    background-color: pink;
+    font-weight: bolder;
+    color: black;
+}
+
+.container {
+    display: grid;
+    height: 600px;
+    width: 800px;
+    grid-template-columns: repeat(12 , 1fr);
+    grid-template-rows: repeat(12 , 1fr);
+    gap: 10px;
+    /* column-gap: 10px;
+    row-gap: 10px; */
+}
+
+#header {
+    grid-column: 1/13;
+    grid-row: 1/2;
+}
+
+#sidebar {
+    grid-column: 1/4;
+    grid-row: 2/12;
+}
+
+#navigation {
+    grid-column: 4/10;
+    grid-row: 2/3;
+}
+
+#ads {
+    grid-column: 10/13;
+    grid-row: 2/12;
+}
+
+#main {
+    grid-column: 4/10;
+    grid-row: 3/12;
+}
+
+#footer {
+    grid-column: 1/13;
+    grid-row: 12/13;
+}

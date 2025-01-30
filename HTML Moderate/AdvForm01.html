@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/server">
+        <div>
+            <label for="name">Username : </label>
+            <input type="text" name="name" id="name">
+            <br>
+            <input type="checkbox" name="age" id="age" checked>
+            <label for="age">I am 18+</label>
+            <br>
+            <input type="radio" name="fruit" id="apple" value="apple">
+            <label for="apple">Apple</label>
+            <input type="radio" name="fruit" id="mango" value="mango">
+            <label for="mango">Mango</label>
+            <input type="radio" name="fruit" id="banana" value="banana">
+            <label for="banana">Banana</label>
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+            Choose Your Subjects :
+            <input type="checkbox" name="sub" id="math" value="math">
+            <label for="math">Math</label>
+            <input type="checkbox" name="sub" id="phy" value="phy">
+            <label for="phy">Physics</label>
+            <input type="checkbox" name="sub" id="chem" value="chem">
+            <label for="chem">Chem</label>
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+            <label for="vol">Select Volume Level : </label>
+            <input type="range" name="vol" id="vol" min="0" max="100" step="2" value="75">
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+            Select Your Profession :
+            <select name="profession" id="profession">
+                <option >Select Your Option</option>
+                <option value="student" selected>Student</option>
+                <option value="developer">Developer</option>
+                <option value="master">Master</option>
+            </select>
+        </div>
+
+        <br />
+        <br />
+
+        <div>
+            <label for="feedback">Kindly Give Your Feedback : </label>
+            <textarea name="feedback" id="feedback"></textarea>
+        </div>
+
+        <br />
+        <br />
+        <button>Submit</button>
+    </form>
+</body>
+</html>

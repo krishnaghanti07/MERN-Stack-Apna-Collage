@@ -1,0 +1,26 @@
+.container {
+    height: 400px;
+    width: 400px;
+    border: 3px solid aqua;
+    border-radius: 15px;
+    padding-top: 20px;
+
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.child {
+    height: 100px;
+    width: 100px;
+    background-color: darkgray;
+    color: black;
+    font-size: 50px;
+    font-weight: 700;
+    border: 2px solid black;
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
