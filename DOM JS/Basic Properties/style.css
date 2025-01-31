@@ -1,4 +1,18 @@
-body {
+.red {
+  color: red;
+}
+
+.blue {
+  color: blue;
+}
+
+.div {
+  background-color: pink;
+  border: 1px solid black;
+}
+
+
+/* body {
   font-family: Arial;
 }
 
@@ -21,6 +35,10 @@ body {
   padding: 1rem;
 }
 
+.yellowBg {
+  background-color: yellow;
+}
+
 .boxLink {
   text-decoration: none;
 }
@@ -33,4 +51,4 @@ body {
 
 #description {
   background-color: antiquewhite;
-}
+} */
