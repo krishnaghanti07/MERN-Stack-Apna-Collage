@@ -1,0 +1,28 @@
+<%- include('includes/head.ejs') %>
+
+<body>
+    <h2>This Page belongs to : @<%= data.name %> </h2>
+    <button>Follow</button>
+    <button>Message</button>
+
+    <p>Followers : <%= data.followers  %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Following : <%= data.following  %></p>
+    <hr />
+
+    <% for (let post of data.posts) { %>
+        <img src="<%= post.image %>" alt="some image">
+        <p>
+            Likes : <%= post.likes %> &nbsp;&nbsp;&nbsp;&nbsp; Comments : <%= post.comments %>
+        </p>
+    <% } %>
+
+    <!-- <h3>Accounts that follows You : </h3> -->
+    <!-- <ul> -->
+        <% //for (name of followers) { %>
+            <!-- <li><%=// name %></li> -->
+        <!-- <% //} %> -->
+    <!-- </ul> -->
+    <script src="/app.js"></script>
+    
+    <%- include('includes/footer.ejs') %>
+</body>
+</html>
