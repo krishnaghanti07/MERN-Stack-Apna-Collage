@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Whatsapp</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="/app.js"></script>
+</head>
+<body>
+    <h1>All Chats : </h1>
+    <form method="GET" action="/chats/new">
+        <button class="btn">Create new chat</button>
+    </form>
+    <br>
+    <hr /><hr />
+    <% for (chat of chats) { %>
+        <div class="chat">
+            <h3>Send By : <b><%= chat.from %></b></h3>
+            <div class="msg">
+                <p>Message : <%= chat.msg %></p>
+                <div class="form-container">
+                    <form method="GET" action="/chats/<%= chat._id %>/edit">
+                        <button class="btn_edit">Edit</button>
+                    </form>
+                    <form method="POST" action="/chats/<%= chat._id %>?_method=DELETE" class="delete-form">
+                        <button class="btn_delete">Delete</button>
+                    </form>
+                    <form method="GET" action="/chats/<%= chat._id %>">
+                        <button class="btn_edit">Show</button>
+                    </form>
+                </div>
+            </div>
+            <h5>Receiver : <i><%= chat.to %></i></h5>
+            <h6>Sent at : <%= chat.created_at.toString().split(" ")[4] %></h6>
+            <h6>Sent on : <%= chat.created_at.toString().split(" ").slice(0 , 4).join("-") %></h6>
+            <hr />
+        </div>
+    <% } %>
+    <hr /><hr />
+</body>
+</html>
