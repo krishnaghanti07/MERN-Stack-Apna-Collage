@@ -7,9 +7,13 @@ const ejsMate = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError");
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require("./models/user");
 
-const listings = require("./routes/listing");
-const reviews = require("./routes/review");
+const listingRouter = require("./routes/listing");
+const reviewRouter = require("./routes/review");
+const userRouter = require("./routes/user");
 
 const port = 8050;
 const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
@@ -53,18 +57,39 @@ app.get("/", (req, res) => {
 app.use(session(sessionOptions));
 app.use(flash());
 
+// configuring strategey using "Passport"
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+
+// use static serialize and deserialize of model for passport session support
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // use a middleware to create a flash-message
 app.use((req , res , next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user ;
   // console.log(res.locals.success);
   next();
 });
 
-// seperate the routing logic of "Listings" & "Reviews"  from the app.js (using as middleware)
-app.use("/listings" , listings);
-app.use("/listings/:id/reviews" , reviews);
+// // Creating a Demo-User
+// app.get("/demouser" , async (req , res) => {
+//   let fakeUser = new User({
+//     email: "student@gmail.com" ,
+//     username: "Delta-Student" ,
+//   });
 
+//   let registeredUser = await User.register(fakeUser , "helloworld");
+//   res.send(registeredUser) ;
+// });
+
+// seperate the routing logic of "Listings" & "Reviews"  from the app.js (using as middleware)
+app.use("/listings" , listingRouter);
+app.use("/listings/:id/reviews" , reviewRouter);
+app.use("/" , userRouter);
 
 // // Testing the Listing-Model
 // app.get("/testListing" , async (req , res) => {
