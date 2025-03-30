@@ -7,19 +7,16 @@ const { saveRedirectUrl } = require("../middleware");
 
 const userController = require("../controllers/users");
 
-// Rendering the sign-up form
-router.get("/signup", userController.renderSignupForm);
+router
+  .route("/signup")
+  .get(userController.renderSignupForm) // Rendering the sign-up form
+  .post(wrapAsync(userController.signup)); // let/help the Un-registered users to get Registered / Signing-Up
 
-// let/help the Un-registered users to get Registered / Signing-Up
-router.post("/signup", wrapAsync(userController.signup));
-
-// Rendering the log-in form
-router.get("/login", userController.renderLoginForm);
-
-// let/help the already Registered users to get Logged-in
+router
+.route("/login") // Rendering the log-in form
+.get(userController.renderLoginForm)
+.post(  // let/help the already Registered users to get Logged-in
 // use "passport.authenticate()" as a middleware to authenticate the particular user
-router.post(
-  "/login",
   saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
@@ -32,3 +29,24 @@ router.post(
 router.get("/logout", userController.logout);
 
 module.exports = router;
+
+// Rendering the sign-up form
+// router.get("/signup", userController.renderSignupForm);
+
+// let/help the Un-registered users to get Registered / Signing-Up
+// router.post("/signup", wrapAsync(userController.signup));
+
+// Rendering the log-in form
+// router.get("/login", userController.renderLoginForm);
+
+// let/help the already Registered users to get Logged-in
+// use "passport.authenticate()" as a middleware to authenticate the particular user
+// router.post(
+//   "/login",
+//   saveRedirectUrl,
+//   passport.authenticate("local", {
+//     failureRedirect: "/login",
+//     failureFlash: true,
+//   }),
+//   userController.login
+// );
