@@ -5,63 +5,30 @@ const wrapAsync = require("../utils/wrapAsync");
 const passport = require("passport");
 const { saveRedirectUrl } = require("../middleware");
 
-router.get("/signup", (req, res) => {
-  res.render("users/signup.ejs");
-});
+const userController = require("../controllers/users");
 
-router.post(
-  "/signup",
-  wrapAsync(async (req, res) => {
-    try {
-      let { username, email, password } = req.body;
-      const newUser = new User({ email, username });
-      let registeredUser = await User.register(newUser, password);
-      console.log(registeredUser);
-      // to automatically login user, after user sign-up
-      req.login(registeredUser , (err) => {
-        if (err) {
-          return next(err);
-        }
-        req.flash("success", "Welcome to Wanderlust");
-        res.redirect("/listings");
-      });
-    } catch (e) {
-      req.flash("error", e.message);
-      res.redirect("/signup");
-    }
-  })
-);
+// Rendering the sign-up form
+router.get("/signup", userController.renderSignupForm);
 
-router.get("/login", (req, res) => {
-  res.render("users/login.ejs");
-});
+// let/help the Un-registered users to get Registered / Signing-Up
+router.post("/signup", wrapAsync(userController.signup));
 
+// Rendering the log-in form
+router.get("/login", userController.renderLoginForm);
+
+// let/help the already Registered users to get Logged-in
 // use "passport.authenticate()" as a middleware to authenticate the particular user
 router.post(
   "/login",
-  saveRedirectUrl ,
+  saveRedirectUrl,
   passport.authenticate("local", {
     failureRedirect: "/login",
     failureFlash: true,
   }),
-  async (req, res) => {
-    req.flash("success", "Welcome back to Wanderlust..!");
-    let redirectUrl = res.locals.redirectUrl || "/listings" ;
-    res.redirect(redirectUrl);
-    // console.log(redirectUrl);
-    // res.redirect("/listings");
-  }
+  userController.login
 );
 
-
-router.get("/logout", (req, res, next) => {
-  req.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    req.flash("success", "You are Logged Out..!");
-    res.redirect("/listings");
-  });
-});
+// let/help the already Logged-in users to get Logged-out / Logged-off
+router.get("/logout", userController.logout);
 
 module.exports = router;
